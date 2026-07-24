@@ -17,6 +17,8 @@
     --stretch: #b45309;
     --target: #0e7c66;
     --safety: #3b5998;
+    --wildcard: #7c3aed;
+    --ruledout: #9ca3af;
     --biz-y: #0e7c66;
     --biz-diff: #b45309;
     --biz-n: #8a8a8a;
@@ -95,7 +97,8 @@
   .star { color: var(--star); font-weight: 700; }
   .nav {
     display: flex;
-    gap: 16px;
+    gap: 12px;
+    flex-wrap: wrap;
     margin-bottom: 40px;
     padding: 12px 0;
     border-top: 1px solid var(--line);
@@ -126,6 +129,7 @@
     display: flex;
     align-items: baseline;
     gap: 12px;
+    flex-wrap: wrap;
   }
   h2 .count {
     font-size: 14px;
@@ -148,6 +152,8 @@
   .tag-stretch { background: rgba(180, 83, 9, 0.12); color: var(--stretch); }
   .tag-target { background: rgba(14, 124, 102, 0.12); color: var(--target); }
   .tag-safety { background: rgba(59, 89, 152, 0.12); color: var(--safety); }
+  .tag-wildcard { background: rgba(124, 58, 237, 0.12); color: var(--wildcard); }
+  .tag-ruledout { background: rgba(156, 163, 175, 0.18); color: #4a4a4a; }
   .section-desc {
     font-size: 14px;
     color: var(--ink-soft);
@@ -229,6 +235,24 @@
   }
   .callout li { margin-bottom: 6px; }
   .callout strong { color: var(--ink); font-weight: 600; }
+  .info-box {
+    background: rgba(59, 89, 152, 0.05);
+    border-left: 3px solid var(--safety);
+    padding: 20px 24px;
+    margin: 32px 0;
+    border-radius: 0 6px 6px 0;
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .info-box h3 {
+    font-family: 'Charter', 'Georgia', serif;
+    font-size: 18px;
+    margin: 0 0 10px;
+    color: var(--ink);
+  }
+  .info-box strong { color: var(--ink); font-weight: 600; }
+  .ruledout-table tr td { opacity: 0.75; }
   .trip-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -255,6 +279,7 @@
   .trip-card.priority-3::before { background: #3b5998; }
   .trip-card.priority-4::before { background: #6b4423; }
   .trip-card.priority-5::before { background: #8a8a8a; }
+  .trip-card.priority-crosscountry::before { background: #7c3aed; }
   .trip-header {
     display: flex;
     align-items: baseline;
@@ -333,6 +358,7 @@
   .tier-target { background: rgba(14, 124, 102, 0.12); color: var(--target); }
   .tier-safety { background: rgba(59, 89, 152, 0.12); color: var(--safety); }
   .tier-must { background: rgba(201, 162, 39, 0.18); color: #8a6d00; }
+  .tier-wildcard { background: rgba(124, 58, 237, 0.12); color: var(--wildcard); }
   .trip-note {
     font-family: 'Charter', 'Georgia', serif;
     font-size: 12px;
@@ -342,12 +368,6 @@
     padding-top: 10px;
     border-top: 1px solid var(--line-soft);
     line-height: 1.5;
-  }
-  .trip-lead {
-    font-size: 14px;
-    color: var(--ink-soft);
-    line-height: 1.6;
-    margin: 0 0 8px;
   }
   .standalone-box {
     background: var(--surface);
@@ -390,9 +410,9 @@
 
 <header>
   <h1>College List</h1>
-  <p class="subtitle">Junior boy, business major, expansive first pass — 60 schools across three tiers</p>
+  <p class="subtitle">Junior boy, business major, expansive list &mdash; five buckets to drive family alignment</p>
   <div class="profile">
-    <strong>Profile:</strong> CA resident, 3.65 GPA, ~4 APs, IEP with dyslexia (standard accommodations), projected SAT ~1200 with time accommodation. Cost-sensitive — prefer public and in-state UC/CSU. WUE (~150% of in-state) flagged for participating OR/UT/CO/AZ/ID publics. Open to business or business-adjacent (economics, managerial econ). Wants the option to play sports — track and football — but not required. Target geographies: CA, OR, UT, CO, AZ, plus big-brand SEC schools for spectator interest.
+    <strong>Profile:</strong> CA resident, 3.7 unweighted GPA, ~4 APs, IEP with dyslexia (standard accommodations), projected SAT ~1200 with time accommodation. Cost-sensitive &mdash; prefer public / in-state UC or CSU. WUE (Western Undergraduate Exchange) discount and other regional exchanges flagged where CA residents pay reduced OOS rates. Open to business or business-adjacent (economics, managerial econ). Wants the option to play sports &mdash; track and football &mdash; but not required. Target geographies: CA, OR, UT, CO, AZ, plus big-brand football-culture schools. <strong>Cost cap: $70K sticker COA</strong> (schools over that landed in Wildcard if they offer heavy merit aid, or Ruled Out if not).
   </div>
 </header>
 
@@ -407,17 +427,19 @@
 </div>
 
 <nav class="nav">
-  <a href="#stretch">Stretch (20)</a>
-  <a href="#target">Target (20)</a>
-  <a href="#safety">Safety (20)</a>
-  <a href="#notes">Reality-check notes</a>
+  <a href="#stretch">Stretch</a>
+  <a href="#target">Target</a>
+  <a href="#safety">Safety</a>
+  <a href="#wildcard">Wildcard</a>
+  <a href="#ruledout">Ruled Out</a>
   <a href="#visits">Visit planner</a>
+  <a href="#regional">Regional exchange info</a>
 </nav>
 
 <section id="stretch">
   <span class="section-tag tag-stretch">Stretch</span>
-  <h2>Stretch Schools <span class="count">20 schools &middot; realistic admit odds under ~35%, or a very competitive capped business program</span></h2>
-  <p class="section-desc">Reach applications — worth applying but plan the rest of the list around not getting in.</p>
+  <h2>Stretch Schools <span class="count">Realistic admit odds under ~35%, or a very competitive capped business program</span></h2>
+  <p class="section-desc">Reach applications &mdash; worth applying but plan the rest of the list around not getting in.</p>
   <table>
     <thead>
       <tr>
@@ -432,26 +454,6 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td><span class="school-name"><span class="star">&#9733;</span> UC San Diego</span><span class="school-loc">La Jolla, CA</span></td>
-        <td class="col-accept">25%</td>
-        <td class="col-div">D1 Big West</td>
-        <td class="col-coa">~$40K IS</td>
-        <td><span class="badge badge-n">N</span></td>
-        <td class="col-sport yes">Y</td>
-        <td class="col-sport no">N</td>
-        <td class="notes">Business Economics is the analog; no dedicated undergrad business school</td>
-      </tr>
-      <tr>
-        <td><span class="school-name"><span class="star">&#9733;</span> University of Florida</span><span class="school-loc">Gainesville, FL</span></td>
-        <td class="col-accept">23%</td>
-        <td class="col-div">D1 SEC</td>
-        <td class="col-coa">~$46K OOS</td>
-        <td><span class="badge badge-diff">Diff</span></td>
-        <td class="col-sport yes">Y</td>
-        <td class="col-sport yes">Y</td>
-        <td class="notes">Direct-admit business, but very competitive for out-of-state applicants</td>
-      </tr>
       <tr>
         <td><span class="school-name">UCLA</span><span class="school-loc">Los Angeles, CA</span></td>
         <td class="col-accept">9%</td>
@@ -471,16 +473,6 @@
         <td class="col-sport yes">Y</td>
         <td class="col-sport yes">Y</td>
         <td class="notes">Business school is an internal transfer in junior year</td>
-      </tr>
-      <tr>
-        <td><span class="school-name">USC</span><span class="school-loc">Los Angeles, CA</span></td>
-        <td class="col-accept">9%</td>
-        <td class="col-div">D1 Big Ten</td>
-        <td class="col-coa">~$95K</td>
-        <td><span class="badge badge-diff">Diff</span></td>
-        <td class="col-sport yes">Y</td>
-        <td class="col-sport yes">Y</td>
-        <td class="notes">Business school admit is separate from university admit</td>
       </tr>
       <tr>
         <td><span class="school-name">UC Santa Barbara</span><span class="school-loc">Santa Barbara, CA</span></td>
@@ -530,7 +522,7 @@
         <td><span class="badge badge-diff">Diff</span></td>
         <td class="col-sport no">N</td>
         <td class="col-sport yes">Y</td>
-        <td class="notes">Men's track program was discontinued in 2020; business is impacted with higher GPA to declare</td>
+        <td class="notes">Men's track discontinued in 2020; business is impacted with higher GPA to declare</td>
       </tr>
       <tr>
         <td><span class="school-name">University of Georgia</span><span class="school-loc">Athens, GA</span></td>
@@ -563,74 +555,64 @@
         <td class="notes">Capped business program; separate application sophomore year</td>
       </tr>
       <tr>
-        <td><span class="school-name">Pepperdine</span><span class="school-loc">Malibu, CA</span></td>
-        <td class="col-accept">42%</td>
-        <td class="col-div">D1 WCC</td>
-        <td class="col-coa">~$85K</td>
-        <td><span class="badge badge-y">Y</span></td>
-        <td class="col-sport yes">Y</td>
-        <td class="col-sport no">N</td>
-        <td class="notes">Direct-admit business; merit aid possible</td>
-      </tr>
-      <tr>
-        <td><span class="school-name">University of Miami</span><span class="school-loc">Coral Gables, FL</span></td>
-        <td class="col-accept">19%</td>
-        <td class="col-div">D1 ACC</td>
-        <td class="col-coa">~$85K</td>
-        <td><span class="badge badge-y">Y</span></td>
-        <td class="col-sport yes">Y</td>
-        <td class="col-sport yes">Y</td>
-        <td class="notes">Direct-admit business</td>
-      </tr>
-      <tr>
-        <td><span class="school-name">SMU</span><span class="school-loc">Dallas, TX</span></td>
-        <td class="col-accept">51%</td>
-        <td class="col-div">D1 ACC</td>
-        <td class="col-coa">~$85K</td>
-        <td><span class="badge badge-y">Y</span></td>
-        <td class="col-sport yes">Y</td>
-        <td class="col-sport yes">Y</td>
-        <td class="notes">Direct-admit business</td>
-      </tr>
-      <tr>
-        <td><span class="school-name">TCU</span><span class="school-loc">Fort Worth, TX</span></td>
-        <td class="col-accept">42%</td>
+        <td><span class="school-name">Arizona State</span><span class="school-loc">Tempe, AZ</span></td>
+        <td class="col-accept">90%</td>
         <td class="col-div">D1 Big 12</td>
-        <td class="col-coa">~$77K</td>
+        <td class="col-coa">~$50K OOS</td>
         <td><span class="badge badge-y">Y</span></td>
         <td class="col-sport yes">Y</td>
         <td class="col-sport yes">Y</td>
-        <td class="notes">Direct-admit business</td>
+        <td class="notes">W. P. Carey business is nationally ranked; direct-admit competitive for OOS</td>
       </tr>
       <tr>
-        <td><span class="school-name">Baylor</span><span class="school-loc">Waco, TX</span></td>
-        <td class="col-accept">46%</td>
-        <td class="col-div">D1 Big 12</td>
-        <td class="col-coa">~$77K</td>
+        <td><span class="school-name">Ole Miss</span><span class="school-loc">Oxford, MS</span></td>
+        <td class="col-accept">88%</td>
+        <td class="col-div">D1 SEC</td>
+        <td class="col-coa">~$44K OOS</td>
         <td><span class="badge badge-y">Y</span></td>
         <td class="col-sport yes">Y</td>
         <td class="col-sport yes">Y</td>
-        <td class="notes">Direct-admit business</td>
+        <td class="notes">Direct-admit business; SEC football culture; strong OOS scholarships</td>
       </tr>
       <tr>
-        <td><span class="school-name">Occidental</span><span class="school-loc">Los Angeles, CA</span></td>
-        <td class="col-accept">36%</td>
-        <td class="col-div">D3 SCIAC</td>
-        <td class="col-coa">~$88K</td>
-        <td><span class="badge badge-n">N</span></td>
+        <td><span class="school-name">Wisconsin</span><span class="school-loc">Madison, WI</span></td>
+        <td class="col-accept">49%</td>
+        <td class="col-div">D1 Big Ten</td>
+        <td class="col-coa">~$59K OOS</td>
+        <td><span class="badge badge-diff">Diff</span></td>
         <td class="col-sport yes">Y</td>
         <td class="col-sport yes">Y</td>
-        <td class="notes">Economics only; small liberal arts college</td>
+        <td class="notes">Wisconsin School of Business is competitive secondary admit</td>
       </tr>
       <tr>
-        <td><span class="school-name">Tulane</span><span class="school-loc">New Orleans, LA</span></td>
-        <td class="col-accept">13%</td>
-        <td class="col-div">D1 AAC</td>
-        <td class="col-coa">~$88K</td>
+        <td><span class="school-name">Michigan State</span><span class="school-loc">East Lansing, MI</span></td>
+        <td class="col-accept">88%</td>
+        <td class="col-div">D1 Big Ten</td>
+        <td class="col-coa">~$61K OOS</td>
+        <td><span class="badge badge-diff">Diff</span></td>
+        <td class="col-sport yes">Y</td>
+        <td class="col-sport yes">Y</td>
+        <td class="notes">Broad College of Business is competitive OOS admit</td>
+      </tr>
+      <tr>
+        <td><span class="school-name">Clemson</span><span class="school-loc">Clemson, SC</span></td>
+        <td class="col-accept">38%</td>
+        <td class="col-div">D1 ACC</td>
+        <td class="col-coa">~$59K OOS</td>
         <td><span class="badge badge-y">Y</span></td>
         <td class="col-sport yes">Y</td>
         <td class="col-sport yes">Y</td>
-        <td class="notes">Direct-admit business</td>
+        <td class="notes">Direct-admit business; strong football culture</td>
+      </tr>
+      <tr>
+        <td><span class="school-name">UConn</span><span class="school-loc">Storrs, CT</span></td>
+        <td class="col-accept">55%</td>
+        <td class="col-div">D1 Big East</td>
+        <td class="col-coa">~$60K OOS</td>
+        <td><span class="badge badge-y">Y</span></td>
+        <td class="col-sport yes">Y</td>
+        <td class="col-sport yes">Y</td>
+        <td class="notes">Direct-admit business; football is FBS but rebuilding</td>
       </tr>
     </tbody>
   </table>
@@ -638,7 +620,7 @@
 
 <section id="target">
   <span class="section-tag tag-target">Target</span>
-  <h2>Target Schools <span class="count">20 schools &middot; realistic admit odds 40&ndash;75%</span></h2>
+  <h2>Target Schools <span class="count">Realistic admit odds 40&ndash;75%</span></h2>
   <p class="section-desc">Core of the application list &mdash; these are the schools he should be most excited about.</p>
   <table>
     <thead>
@@ -658,11 +640,11 @@
         <td><span class="school-name"><span class="star">&#9733;</span> CU Boulder</span><span class="school-loc">Boulder, CO</span></td>
         <td class="col-accept">78%</td>
         <td class="col-div">D1 Big 12</td>
-        <td class="col-coa">~$59K OOS</td>
+        <td class="col-coa">~$59K OOS (partial WUE)</td>
         <td><span class="badge badge-y">Y</span></td>
         <td class="col-sport yes">Y</td>
         <td class="col-sport yes">Y</td>
-        <td class="notes">Direct-admit business; right in the fairway for this profile</td>
+        <td class="notes">Direct-admit Leeds business; right in the fairway for this profile</td>
       </tr>
       <tr>
         <td><span class="school-name">University of Oregon</span><span class="school-loc">Eugene, OR</span></td>
@@ -688,31 +670,21 @@
         <td><span class="school-name">University of Arizona</span><span class="school-loc">Tucson, AZ</span></td>
         <td class="col-accept">87%</td>
         <td class="col-div">D1 Big 12</td>
-        <td class="col-coa">~$52K OOS (WUE possible)</td>
+        <td class="col-coa">~$42K OOS (with WUE)</td>
         <td><span class="badge badge-y">Y</span></td>
         <td class="col-sport yes">Y</td>
         <td class="col-sport yes">Y</td>
-        <td class="notes">Direct-admit business; well-known SALT Center for LD support</td>
-      </tr>
-      <tr>
-        <td><span class="school-name">Arizona State</span><span class="school-loc">Tempe, AZ</span></td>
-        <td class="col-accept">90%</td>
-        <td class="col-div">D1 Big 12</td>
-        <td class="col-coa">~$50K OOS</td>
-        <td><span class="badge badge-y">Y</span></td>
-        <td class="col-sport yes">Y</td>
-        <td class="col-sport yes">Y</td>
-        <td class="notes">Direct-admit business</td>
+        <td class="notes">Direct-admit Eller business; SALT Center for LD support is a real differentiator</td>
       </tr>
       <tr>
         <td><span class="school-name">University of Utah</span><span class="school-loc">Salt Lake City, UT</span></td>
         <td class="col-accept">91%</td>
         <td class="col-div">D1 Big 12</td>
-        <td class="col-coa">~$44K OOS (partial WUE)</td>
+        <td class="col-coa">~$40K OOS (with WUE)</td>
         <td><span class="badge badge-y">Y</span></td>
         <td class="col-sport yes">Y</td>
         <td class="col-sport yes">Y</td>
-        <td class="notes">Direct-admit business</td>
+        <td class="notes">Direct-admit Eccles business; strong WUE value for CA students</td>
       </tr>
       <tr>
         <td><span class="school-name">Colorado State</span><span class="school-loc">Fort Collins, CO</span></td>
@@ -722,16 +694,6 @@
         <td><span class="badge badge-y">Y</span></td>
         <td class="col-sport yes">Y</td>
         <td class="col-sport yes">Y</td>
-        <td class="notes">Direct-admit business</td>
-      </tr>
-      <tr>
-        <td><span class="school-name">University of Denver</span><span class="school-loc">Denver, CO</span></td>
-        <td class="col-accept">66%</td>
-        <td class="col-div">D1 Summit</td>
-        <td class="col-coa">~$85K (heavy merit aid)</td>
-        <td><span class="badge badge-y">Y</span></td>
-        <td class="col-sport yes">Y (indoor)</td>
-        <td class="col-sport no">N</td>
         <td class="notes">Direct-admit business</td>
       </tr>
       <tr>
@@ -755,26 +717,6 @@
         <td class="notes">Economics only; verify current varsity T&amp;F status</td>
       </tr>
       <tr>
-        <td><span class="school-name">Chapman</span><span class="school-loc">Orange, CA</span></td>
-        <td class="col-accept">55%</td>
-        <td class="col-div">D3 SCIAC</td>
-        <td class="col-coa">~$85K</td>
-        <td><span class="badge badge-y">Y</span></td>
-        <td class="col-sport yes">Y</td>
-        <td class="col-sport yes">Y (D3)</td>
-        <td class="notes">Direct-admit business</td>
-      </tr>
-      <tr>
-        <td><span class="school-name">University of San Diego</span><span class="school-loc">San Diego, CA</span></td>
-        <td class="col-accept">49%</td>
-        <td class="col-div">D1 WCC / FCS Pioneer League</td>
-        <td class="col-coa">~$85K</td>
-        <td><span class="badge badge-y">Y</span></td>
-        <td class="col-sport yes">Y</td>
-        <td class="col-sport yes">Y</td>
-        <td class="notes">Direct-admit Knauss business; football is D1 FCS non-scholarship (different feel from SEC); merit aid available</td>
-      </tr>
-      <tr>
         <td><span class="school-name">Cal Poly Pomona</span><span class="school-loc">Pomona, CA</span></td>
         <td class="col-accept">55%</td>
         <td class="col-div">D2 CCAA</td>
@@ -792,7 +734,17 @@
         <td><span class="badge badge-y">Y</span></td>
         <td class="col-sport yes">Y</td>
         <td class="col-sport yes">Y</td>
-        <td class="notes">Direct-admit business</td>
+        <td class="notes">Direct-admit Lucas business</td>
+      </tr>
+      <tr>
+        <td><span class="school-name">CSU Long Beach</span><span class="school-loc">Long Beach, CA</span></td>
+        <td class="col-accept">39%</td>
+        <td class="col-div">D1 Big West</td>
+        <td class="col-coa">~$30K IS</td>
+        <td><span class="badge badge-diff">Diff</span></td>
+        <td class="col-sport yes">Y</td>
+        <td class="col-sport no">N</td>
+        <td class="notes">Men's T&amp;F program active; business is impacted</td>
       </tr>
       <tr>
         <td><span class="school-name">University of Alabama</span><span class="school-loc">Tuscaloosa, AL</span></td>
@@ -845,14 +797,84 @@
         <td class="notes">Competitive business admit</td>
       </tr>
       <tr>
-        <td><span class="school-name">Ole Miss</span><span class="school-loc">Oxford, MS</span></td>
-        <td class="col-accept">88%</td>
-        <td class="col-div">D1 SEC</td>
-        <td class="col-coa">~$44K OOS</td>
+        <td><span class="school-name">Ohio State</span><span class="school-loc">Columbus, OH</span></td>
+        <td class="col-accept">57%</td>
+        <td class="col-div">D1 Big Ten</td>
+        <td class="col-coa">~$52K OOS</td>
         <td><span class="badge badge-y">Y</span></td>
         <td class="col-sport yes">Y</td>
         <td class="col-sport yes">Y</td>
-        <td class="notes">Direct-admit business; most accessible SEC option with strong OOS scholarships</td>
+        <td class="notes">Direct-admit Fisher business; huge football culture</td>
+      </tr>
+      <tr>
+        <td><span class="school-name">Indiana University</span><span class="school-loc">Bloomington, IN</span></td>
+        <td class="col-accept">85%</td>
+        <td class="col-div">D1 Big Ten</td>
+        <td class="col-coa">~$59K OOS</td>
+        <td><span class="badge badge-diff">Diff</span></td>
+        <td class="col-sport yes">Y</td>
+        <td class="col-sport yes">Y</td>
+        <td class="notes">Kelley is one of the top undergrad business schools nationally; direct-admit but very competitive</td>
+      </tr>
+      <tr>
+        <td><span class="school-name">South Carolina</span><span class="school-loc">Columbia, SC</span></td>
+        <td class="col-accept">64%</td>
+        <td class="col-div">D1 SEC</td>
+        <td class="col-coa">~$52K OOS</td>
+        <td><span class="badge badge-y">Y</span></td>
+        <td class="col-sport yes">Y</td>
+        <td class="col-sport yes">Y</td>
+        <td class="notes">Direct-admit Darla Moore business (top-ranked international business program)</td>
+      </tr>
+      <tr>
+        <td><span class="school-name">Nebraska</span><span class="school-loc">Lincoln, NE</span></td>
+        <td class="col-accept">78%</td>
+        <td class="col-div">D1 Big Ten</td>
+        <td class="col-coa">~$52K OOS</td>
+        <td><span class="badge badge-y">Y</span></td>
+        <td class="col-sport yes">Y</td>
+        <td class="col-sport yes">Y</td>
+        <td class="notes">Direct-admit business; strong football tradition</td>
+      </tr>
+      <tr>
+        <td><span class="school-name">Creighton</span><span class="school-loc">Omaha, NE</span></td>
+        <td class="col-accept">74%</td>
+        <td class="col-div">D1 Big East</td>
+        <td class="col-coa">~$65K (heavy merit aid)</td>
+        <td><span class="badge badge-y">Y</span></td>
+        <td class="col-sport yes">Y</td>
+        <td class="col-sport no">N</td>
+        <td class="notes">Direct-admit Heider business; Jesuit private; no football but strong basketball</td>
+      </tr>
+      <tr>
+        <td><span class="school-name">USF (Tampa)</span><span class="school-loc">Tampa, FL</span></td>
+        <td class="col-accept">44%</td>
+        <td class="col-div">D1 AAC</td>
+        <td class="col-coa">~$40K OOS</td>
+        <td><span class="badge badge-y">Y</span></td>
+        <td class="col-sport yes">Y</td>
+        <td class="col-sport yes">Y</td>
+        <td class="notes">Direct-admit Muma business; excellent OOS value</td>
+      </tr>
+      <tr>
+        <td><span class="school-name">Kansas State</span><span class="school-loc">Manhattan, KS</span></td>
+        <td class="col-accept">93%</td>
+        <td class="col-div">D1 Big 12</td>
+        <td class="col-coa">~$45K OOS</td>
+        <td><span class="badge badge-y">Y</span></td>
+        <td class="col-sport yes">Y</td>
+        <td class="col-sport yes">Y</td>
+        <td class="notes">Direct-admit business; strong OOS merit possibilities</td>
+      </tr>
+      <tr>
+        <td><span class="school-name">Cal State Fullerton</span><span class="school-loc">Fullerton, CA</span></td>
+        <td class="col-accept">68%</td>
+        <td class="col-div">D1 Big West</td>
+        <td class="col-coa">~$29K IS</td>
+        <td><span class="badge badge-diff">Diff</span></td>
+        <td class="col-sport yes">Y</td>
+        <td class="col-sport no">N</td>
+        <td class="notes">Men's T&amp;F program active; well-regarded business school but impacted</td>
       </tr>
     </tbody>
   </table>
@@ -860,7 +882,7 @@
 
 <section id="safety">
   <span class="section-tag tag-safety">Safety</span>
-  <h2>Safety Schools <span class="count">20 schools &middot; realistic admit odds over ~80%</span></h2>
+  <h2>Safety Schools <span class="count">Realistic admit odds over ~80%</span></h2>
   <p class="section-desc">Likely admits &mdash; every list needs multiple true safeties he'd genuinely be happy to attend.</p>
   <table>
     <thead>
@@ -876,16 +898,6 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td><span class="school-name">CSU Long Beach</span><span class="school-loc">Long Beach, CA</span></td>
-        <td class="col-accept">39%</td>
-        <td class="col-div">D1 Big West</td>
-        <td class="col-coa">~$30K IS</td>
-        <td><span class="badge badge-diff">Diff</span></td>
-        <td class="col-sport no">N</td>
-        <td class="col-sport no">N</td>
-        <td class="notes">Business is impacted; drifting toward target territory</td>
-      </tr>
       <tr>
         <td><span class="school-name">Sacramento State</span><span class="school-loc">Sacramento, CA</span></td>
         <td class="col-accept">87%</td>
@@ -947,16 +959,6 @@
         <td class="notes">Direct-admit business</td>
       </tr>
       <tr>
-        <td><span class="school-name">Cal State Fullerton</span><span class="school-loc">Fullerton, CA</span></td>
-        <td class="col-accept">68%</td>
-        <td class="col-div">D1 Big West</td>
-        <td class="col-coa">~$29K IS</td>
-        <td><span class="badge badge-diff">Diff</span></td>
-        <td class="col-sport no">N</td>
-        <td class="col-sport no">N</td>
-        <td class="notes">Well-regarded business school but impacted; higher GPA to declare</td>
-      </tr>
-      <tr>
         <td><span class="school-name">Northern Arizona (NAU)</span><span class="school-loc">Flagstaff, AZ</span></td>
         <td class="col-accept">85%</td>
         <td class="col-div">D1 Big Sky FCS</td>
@@ -977,46 +979,6 @@
         <td class="notes">Direct-admit business</td>
       </tr>
       <tr>
-        <td><span class="school-name">Utah State</span><span class="school-loc">Logan, UT</span></td>
-        <td class="col-accept">92%</td>
-        <td class="col-div">D1 Mountain West</td>
-        <td class="col-coa">~$34K OOS (WUE)</td>
-        <td><span class="badge badge-y">Y</span></td>
-        <td class="col-sport yes">Y</td>
-        <td class="col-sport yes">Y (FBS)</td>
-        <td class="notes">Direct-admit business; great WUE value</td>
-      </tr>
-      <tr>
-        <td><span class="school-name">Weber State</span><span class="school-loc">Ogden, UT</span></td>
-        <td class="col-accept">100%</td>
-        <td class="col-div">D1 Big Sky FCS</td>
-        <td class="col-coa">~$23K OOS (WUE)</td>
-        <td><span class="badge badge-y">Y</span></td>
-        <td class="col-sport yes">Y</td>
-        <td class="col-sport yes">Y</td>
-        <td class="notes">Direct-admit business</td>
-      </tr>
-      <tr>
-        <td><span class="school-name">Southern Utah</span><span class="school-loc">Cedar City, UT</span></td>
-        <td class="col-accept">100%</td>
-        <td class="col-div">D1 UAC FCS</td>
-        <td class="col-coa">~$24K OOS (WUE)</td>
-        <td><span class="badge badge-y">Y</span></td>
-        <td class="col-sport yes">Y</td>
-        <td class="col-sport yes">Y</td>
-        <td class="notes">Direct-admit business</td>
-      </tr>
-      <tr>
-        <td><span class="school-name">Utah Valley</span><span class="school-loc">Orem, UT</span></td>
-        <td class="col-accept">100%</td>
-        <td class="col-div">D1 WAC</td>
-        <td class="col-coa">~$22K OOS (WUE)</td>
-        <td><span class="badge badge-y">Y</span></td>
-        <td class="col-sport yes">Y</td>
-        <td class="col-sport no">N</td>
-        <td class="notes">Direct-admit business</td>
-      </tr>
-      <tr>
         <td><span class="school-name">Boise State</span><span class="school-loc">Boise, ID</span></td>
         <td class="col-accept">82%</td>
         <td class="col-div">D1 Mountain West</td>
@@ -1024,7 +986,7 @@
         <td><span class="badge badge-y">Y</span></td>
         <td class="col-sport yes">Y</td>
         <td class="col-sport yes">Y (FBS)</td>
-        <td class="notes">Direct-admit business; ID is outside target states but WUE + FBS football fits interests</td>
+        <td class="notes">Direct-admit business; FBS football; strong WUE value</td>
       </tr>
       <tr>
         <td><span class="school-name">Portland State</span><span class="school-loc">Portland, OR</span></td>
@@ -1080,16 +1042,208 @@
   </table>
 </section>
 
+<section id="wildcard">
+  <span class="section-tag tag-wildcard">Wildcard</span>
+  <h2>Wildcard <span class="count">Not a target &mdash; but not fully off the table</span></h2>
+  <p class="section-desc">Aspirational, over-budget-at-sticker but merit-eligible, or geographic outliers. Apply only if something changes (SAT score jumps, merit aid materializes, visit love).</p>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 22%">School</th>
+        <th style="width: 8%">Accept</th>
+        <th style="width: 14%">Division / Conf</th>
+        <th style="width: 10%">~COA</th>
+        <th style="width: 8%">Biz</th>
+        <th style="width: 6%">T&amp;F</th>
+        <th style="width: 6%">Ftbl</th>
+        <th style="width: 26%">Why here</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="school-name"><span class="star">&#9733;</span> UC San Diego</span><span class="school-loc">La Jolla, CA</span></td>
+        <td class="col-accept">25%</td>
+        <td class="col-div">D1 Big West</td>
+        <td class="col-coa">~$40K IS</td>
+        <td><span class="badge badge-n">N</span></td>
+        <td class="col-sport yes">Y</td>
+        <td class="col-sport no">N</td>
+        <td class="notes">GPA below UCSD's admitted range (typically 4.15+ capped weighted). Business Economics is the analog. Apply if SAT is strong.</td>
+      </tr>
+      <tr>
+        <td><span class="school-name"><span class="star">&#9733;</span> University of Florida</span><span class="school-loc">Gainesville, FL</span></td>
+        <td class="col-accept">23%</td>
+        <td class="col-div">D1 SEC</td>
+        <td class="col-coa">~$46K OOS</td>
+        <td><span class="badge badge-diff">Diff</span></td>
+        <td class="col-sport yes">Y</td>
+        <td class="col-sport yes">Y</td>
+        <td class="notes">OOS admit is very tough for this profile. Warrington business is direct-admit but selective. Apply only if he's committed to going through with it as a lottery-style application.</td>
+      </tr>
+      <tr>
+        <td><span class="school-name">University of Denver</span><span class="school-loc">Denver, CO</span></td>
+        <td class="col-accept">66%</td>
+        <td class="col-div">D1 Summit</td>
+        <td class="col-coa">~$85K (heavy merit aid)</td>
+        <td><span class="badge badge-y">Y</span></td>
+        <td class="col-sport yes">Y (indoor)</td>
+        <td class="col-sport no">N</td>
+        <td class="notes">Sticker over $70K cap, but DU is known for large merit awards that often bring net cost to $45-55K. Direct-admit Daniels business.</td>
+      </tr>
+      <tr>
+        <td><span class="school-name">University of San Diego</span><span class="school-loc">San Diego, CA</span></td>
+        <td class="col-accept">49%</td>
+        <td class="col-div">D1 WCC / FCS Pioneer League</td>
+        <td class="col-coa">~$85K (merit aid available)</td>
+        <td><span class="badge badge-y">Y</span></td>
+        <td class="col-sport yes">Y</td>
+        <td class="col-sport yes">Y</td>
+        <td class="notes">Sticker over $70K cap. Merit aid can bring net cost down substantially. Direct-admit Knauss business; football is FCS non-scholarship.</td>
+      </tr>
+      <tr>
+        <td><span class="school-name">Chapman</span><span class="school-loc">Orange, CA</span></td>
+        <td class="col-accept">55%</td>
+        <td class="col-div">D3 SCIAC</td>
+        <td class="col-coa">~$85K (merit aid available)</td>
+        <td><span class="badge badge-y">Y</span></td>
+        <td class="col-sport yes">Y</td>
+        <td class="col-sport yes">Y (D3)</td>
+        <td class="notes">Sticker over $70K cap. Chapman merit awards can bring net cost meaningfully lower. Direct-admit Argyros business.</td>
+      </tr>
+      <tr>
+        <td><span class="school-name">University of Hawaii</span><span class="school-loc">Honolulu, HI</span></td>
+        <td class="col-accept">58%</td>
+        <td class="col-div">D1 Mountain West</td>
+        <td class="col-coa">~$25K OOS (WUE)</td>
+        <td><span class="badge badge-y">Y</span></td>
+        <td class="col-sport yes">Y</td>
+        <td class="col-sport yes">Y</td>
+        <td class="notes">Direct-admit Shidler business; strong WUE value; not in target geography but WUE-eligible and unique fit</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="ruledout">
+  <span class="section-tag tag-ruledout">Ruled Out</span>
+  <h2>Ruled Out <span class="count">Over $70K sticker with limited merit aid, or otherwise off the table</span></h2>
+  <p class="section-desc">Listed so we can point to them and not re-litigate. These names come up in conversation but don't fit the cost/fit criteria.</p>
+  <table class="ruledout-table">
+    <thead>
+      <tr>
+        <th style="width: 22%">School</th>
+        <th style="width: 8%">Accept</th>
+        <th style="width: 14%">Division / Conf</th>
+        <th style="width: 10%">~COA</th>
+        <th style="width: 46%">Why ruled out</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="school-name">USC</span><span class="school-loc">Los Angeles, CA</span></td>
+        <td class="col-accept">9%</td>
+        <td class="col-div">D1 Big Ten</td>
+        <td class="col-coa">~$95K</td>
+        <td class="notes">Over $70K cap; USC merit aid rarely brings net cost below cap for this profile. Also very low admit odds.</td>
+      </tr>
+      <tr>
+        <td><span class="school-name">Pepperdine</span><span class="school-loc">Malibu, CA</span></td>
+        <td class="col-accept">42%</td>
+        <td class="col-div">D1 WCC</td>
+        <td class="col-coa">~$85K</td>
+        <td class="notes">Over $70K cap; merit aid inconsistent</td>
+      </tr>
+      <tr>
+        <td><span class="school-name">University of Miami (FL)</span><span class="school-loc">Coral Gables, FL</span></td>
+        <td class="col-accept">19%</td>
+        <td class="col-div">D1 ACC</td>
+        <td class="col-coa">~$85K</td>
+        <td class="notes">Over $70K cap; low admit odds compound the cost issue</td>
+      </tr>
+      <tr>
+        <td><span class="school-name">SMU</span><span class="school-loc">Dallas, TX</span></td>
+        <td class="col-accept">51%</td>
+        <td class="col-div">D1 ACC</td>
+        <td class="col-coa">~$85K</td>
+        <td class="notes">Over $70K cap</td>
+      </tr>
+      <tr>
+        <td><span class="school-name">TCU</span><span class="school-loc">Fort Worth, TX</span></td>
+        <td class="col-accept">42%</td>
+        <td class="col-div">D1 Big 12</td>
+        <td class="col-coa">~$77K</td>
+        <td class="notes">Over $70K cap</td>
+      </tr>
+      <tr>
+        <td><span class="school-name">Baylor</span><span class="school-loc">Waco, TX</span></td>
+        <td class="col-accept">46%</td>
+        <td class="col-div">D1 Big 12</td>
+        <td class="col-coa">~$77K</td>
+        <td class="notes">Over $70K cap</td>
+      </tr>
+      <tr>
+        <td><span class="school-name">Occidental</span><span class="school-loc">Los Angeles, CA</span></td>
+        <td class="col-accept">36%</td>
+        <td class="col-div">D3 SCIAC</td>
+        <td class="col-coa">~$88K</td>
+        <td class="notes">Over $70K cap; small LAC; economics only (no business)</td>
+      </tr>
+      <tr>
+        <td><span class="school-name">Tulane</span><span class="school-loc">New Orleans, LA</span></td>
+        <td class="col-accept">13%</td>
+        <td class="col-div">D1 AAC</td>
+        <td class="col-coa">~$88K</td>
+        <td class="notes">Over $70K cap; low admit odds</td>
+      </tr>
+      <tr>
+        <td><span class="school-name">Loyola Marymount</span><span class="school-loc">Los Angeles, CA</span></td>
+        <td class="col-accept">44%</td>
+        <td class="col-div">D1 WCC</td>
+        <td class="col-coa">~$80K</td>
+        <td class="notes">Over $70K cap; no football (previously swapped for USD)</td>
+      </tr>
+      <tr>
+        <td><span class="school-name">Utah State</span><span class="school-loc">Logan, UT</span></td>
+        <td class="col-accept">92%</td>
+        <td class="col-div">D1 Mountain West</td>
+        <td class="col-coa">~$34K OOS (WUE)</td>
+        <td class="notes">Dropped per teen preference &mdash; keeping only U of Utah among Utah schools</td>
+      </tr>
+      <tr>
+        <td><span class="school-name">Weber State</span><span class="school-loc">Ogden, UT</span></td>
+        <td class="col-accept">100%</td>
+        <td class="col-div">D1 Big Sky FCS</td>
+        <td class="col-coa">~$23K OOS (WUE)</td>
+        <td class="notes">Dropped per teen preference</td>
+      </tr>
+      <tr>
+        <td><span class="school-name">Southern Utah</span><span class="school-loc">Cedar City, UT</span></td>
+        <td class="col-accept">100%</td>
+        <td class="col-div">D1 UAC FCS</td>
+        <td class="col-coa">~$24K OOS (WUE)</td>
+        <td class="notes">Dropped per teen preference</td>
+      </tr>
+      <tr>
+        <td><span class="school-name">Utah Valley</span><span class="school-loc">Orem, UT</span></td>
+        <td class="col-accept">100%</td>
+        <td class="col-div">D1 WAC</td>
+        <td class="col-coa">~$22K OOS (WUE)</td>
+        <td class="notes">Dropped per teen preference</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
 <section id="notes">
   <div class="callout">
     <h3>Reality-check reminders</h3>
     <ul>
-      <li><strong>UCSD and UF are true stretches</strong> for a 3.65 / 1200 profile. Both must-haves belong in stretch, not target. Setting expectations early matters.</li>
-      <li><strong>CU Boulder is a legitimate target</strong> &mdash; right in the fairway.</li>
+      <li><strong>UCSD and UF moved to Wildcard.</strong> Both are aspirational reaches for a 3.7 UW / 1200 SAT profile. Keeping them visible without pretending they're realistic.</li>
+      <li><strong>CU Boulder is the strongest must-have</strong> &mdash; legitimate target and right in the fairway.</li>
       <li><strong>"Biz: Diff" schools have a second admissions hurdle</strong> beyond the university admit. Plan on maintaining a strong college GPA freshman year to clear it.</li>
-      <li><strong>WUE is the biggest cost lever</strong> for OR/UT/CO/AZ/ID publics, but not all business programs participate &mdash; verify per school.</li>
-      <li><strong>Once his SAT score is in:</strong> a 1300+ shifts several SEC schools and lower UCs from stretch to target; an 1100 pushes UCs and UF further out and moves a few targets into safety.</li>
-      <li><strong>Verify before applying:</strong> acceptance rates fluctuate 3&ndash;8 points year over year; net cost after aid can differ dramatically at privates; a few T&amp;F/football program statuses flagged for double-check (LMU, UC Santa Cruz).</li>
+      <li><strong>Kelley (Indiana) is the sneakiest one on the list</strong> &mdash; Indiana's overall admit rate is 85% but Kelley direct-admit is one of the toughest undergrad business admits in the country. Worth flagging.</li>
+      <li><strong>Merit aid at wildcards matters:</strong> DU, USD, and Chapman all publish merit tiers tied to GPA/SAT. Run their net-price calculators once his SAT is in.</li>
+      <li><strong>Once his SAT score is in:</strong> a 1300+ shifts several stretches (Wisconsin, Clemson) toward target; an 1100 pushes UCs further out and moves a few targets into safety.</li>
     </ul>
   </div>
 </section>
@@ -1104,15 +1258,15 @@
     <div class="trip-card priority-1">
       <div class="trip-header">
         <h3 class="trip-title">San Diego</h3>
-        <span class="trip-priority">Next week</span>
+        <span class="trip-priority">Already scheduled</span>
       </div>
       <p class="trip-meta">3 schools &middot; full day &middot; all within 20 min</p>
       <ul class="trip-schools">
-        <li><span><span class="school">UC San Diego</span> <span class="school-city">La Jolla</span></span><span class="trip-tier tier-must">Must &middot; Stretch</span></li>
+        <li><span><span class="school">UC San Diego</span> <span class="school-city">La Jolla</span></span><span class="trip-tier tier-wildcard">Wildcard</span></li>
         <li><span><span class="school">SDSU</span> <span class="school-city">San Diego</span></span><span class="trip-tier tier-stretch">Stretch</span></li>
-        <li><span><span class="school">University of San Diego</span> <span class="school-city">San Diego</span></span><span class="trip-tier tier-target">Target</span></li>
+        <li><span><span class="school">University of San Diego</span> <span class="school-city">San Diego</span></span><span class="trip-tier tier-wildcard">Wildcard</span></li>
       </ul>
-      <p class="trip-note">Great mix &mdash; a stretch UC, a stretch state school, and a target private, all in one town. Good chance to feel out the size and vibe differences.</p>
+      <p class="trip-note">A stretch state school and two wildcards. USD merit aid conversation is the key ask on this visit.</p>
     </div>
 
     <div class="trip-card priority-1">
@@ -1120,31 +1274,28 @@
         <h3 class="trip-title">LA / Orange County</h3>
         <span class="trip-priority">Priority 1 &middot; Spring break</span>
       </div>
-      <p class="trip-meta">10 schools &middot; 3 days &middot; drivable from home</p>
+      <p class="trip-meta">8 schools &middot; 2-3 days &middot; drivable from home</p>
 
       <div class="trip-day">Day 1 &middot; Westside LA</div>
       <ul class="trip-schools">
         <li><span><span class="school">UCLA</span> <span class="school-city">Westwood</span></span><span class="trip-tier tier-stretch">Stretch</span></li>
-        <li><span><span class="school">USC</span> <span class="school-city">South LA</span></span><span class="trip-tier tier-stretch">Stretch</span></li>
-        <li><span><span class="school">Pepperdine</span> <span class="school-city">Malibu</span></span><span class="trip-tier tier-stretch">Stretch</span></li>
       </ul>
 
       <div class="trip-day">Day 2 &middot; Pasadena / East LA</div>
       <ul class="trip-schools">
-        <li><span><span class="school">Occidental</span> <span class="school-city">Eagle Rock</span></span><span class="trip-tier tier-stretch">Stretch</span></li>
         <li><span><span class="school">Cal Poly Pomona</span> <span class="school-city">Pomona</span></span><span class="trip-tier tier-target">Target</span></li>
         <li><span><span class="school">CSU Northridge</span> <span class="school-city">San Fernando Valley</span></span><span class="trip-tier tier-safety">Safety</span></li>
       </ul>
 
       <div class="trip-day">Day 3 &middot; Orange County</div>
       <ul class="trip-schools">
-        <li><span><span class="school">Chapman</span> <span class="school-city">Orange</span></span><span class="trip-tier tier-target">Target</span></li>
-        <li><span><span class="school">Cal State Fullerton</span> <span class="school-city">Fullerton</span></span><span class="trip-tier tier-safety">Safety</span></li>
+        <li><span><span class="school">Chapman</span> <span class="school-city">Orange</span></span><span class="trip-tier tier-wildcard">Wildcard</span></li>
+        <li><span><span class="school">Cal State Fullerton</span> <span class="school-city">Fullerton</span></span><span class="trip-tier tier-target">Target</span></li>
         <li><span><span class="school">UC Irvine</span> <span class="school-city">Irvine</span></span><span class="trip-tier tier-stretch">Stretch</span></li>
-        <li><span><span class="school">CSU Long Beach</span> <span class="school-city">Long Beach</span></span><span class="trip-tier tier-safety">Safety</span></li>
+        <li><span><span class="school">CSU Long Beach</span> <span class="school-city">Long Beach</span></span><span class="trip-tier tier-target">Target</span></li>
       </ul>
 
-      <p class="trip-note">Highest school-density trip on the list. Could add UC Riverside (target) as a Day 4 side trip &mdash; 45 min inland from OC.</p>
+      <p class="trip-note">Could add UC Riverside (target) as a Day 4 side trip &mdash; 45 min inland from OC.</p>
     </div>
 
     <div class="trip-card priority-2">
@@ -1156,10 +1307,10 @@
       <ul class="trip-schools">
         <li><span><span class="school">CU Boulder</span> <span class="school-city">Boulder</span></span><span class="trip-tier tier-must">Must &middot; Target</span></li>
         <li><span><span class="school">Colorado State</span> <span class="school-city">Fort Collins</span></span><span class="trip-tier tier-target">Target</span></li>
-        <li><span><span class="school">University of Denver</span> <span class="school-city">Denver</span></span><span class="trip-tier tier-target">Target</span></li>
+        <li><span><span class="school">University of Denver</span> <span class="school-city">Denver</span></span><span class="trip-tier tier-wildcard">Wildcard</span></li>
         <li><span><span class="school">Metro State Denver</span> <span class="school-city">Denver</span></span><span class="trip-tier tier-safety">Safety</span></li>
       </ul>
-      <p class="trip-note">Hits the third must-have plus three targets in a tight radius. Very efficient cluster.</p>
+      <p class="trip-note">Hits the top must-have plus a target and safety in a tight radius. DU merit-aid ask is the wildcard question here.</p>
     </div>
 
     <div class="trip-card priority-3">
@@ -1170,7 +1321,7 @@
       <p class="trip-meta">4 schools &middot; fly to Phoenix &middot; 3 days</p>
       <div class="trip-day">Phoenix metro</div>
       <ul class="trip-schools">
-        <li><span><span class="school">Arizona State</span> <span class="school-city">Tempe</span></span><span class="trip-tier tier-target">Target</span></li>
+        <li><span><span class="school">Arizona State</span> <span class="school-city">Tempe</span></span><span class="trip-tier tier-stretch">Stretch</span></li>
         <li><span><span class="school">Grand Canyon</span> <span class="school-city">Phoenix</span></span><span class="trip-tier tier-safety">Safety</span></li>
       </ul>
       <div class="trip-day">Day trips from Phoenix</div>
@@ -1178,7 +1329,7 @@
         <li><span><span class="school">NAU</span> <span class="school-city">Flagstaff &middot; 2 hr north</span></span><span class="trip-tier tier-safety">Safety</span></li>
         <li><span><span class="school">U Arizona</span> <span class="school-city">Tucson &middot; 2 hr south</span></span><span class="trip-tier tier-target">Target</span></li>
       </ul>
-      <p class="trip-note">U Arizona is worth prioritizing given the SALT Center for LD support &mdash; a real differentiator for him.</p>
+      <p class="trip-note">U Arizona is worth prioritizing given the SALT Center for LD support &mdash; a real differentiator.</p>
     </div>
 
     <div class="trip-card priority-4">
@@ -1186,14 +1337,13 @@
         <h3 class="trip-title">Bay Area / Sacramento</h3>
         <span class="trip-priority">Priority 4 &middot; 2-3 days</span>
       </div>
-      <p class="trip-meta">6 schools &middot; drivable or short flight</p>
+      <p class="trip-meta">5 schools &middot; drivable or short flight</p>
       <ul class="trip-schools">
         <li><span><span class="school">UC Berkeley</span> <span class="school-city">Berkeley</span></span><span class="trip-tier tier-stretch">Stretch</span></li>
         <li><span><span class="school">San Jose State</span> <span class="school-city">San Jose</span></span><span class="trip-tier tier-target">Target</span></li>
         <li><span><span class="school">UC Santa Cruz</span> <span class="school-city">Santa Cruz</span></span><span class="trip-tier tier-target">Target</span></li>
         <li><span><span class="school">UC Davis</span> <span class="school-city">Davis</span></span><span class="trip-tier tier-stretch">Stretch</span></li>
         <li><span><span class="school">Sacramento State</span> <span class="school-city">Sacramento</span></span><span class="trip-tier tier-safety">Safety</span></li>
-        <li><span><span class="school">CSU Monterey Bay</span> <span class="school-city">Seaside</span></span><span class="trip-tier tier-safety">Safety</span></li>
       </ul>
       <p class="trip-note">Good stretch-to-safety mix but he may already have Bay Area exposure. Skip if time is tight.</p>
     </div>
@@ -1222,48 +1372,97 @@
         <li><span><span class="school">Oregon State</span> <span class="school-city">Corvallis</span></span><span class="trip-tier tier-target">Target</span></li>
         <li><span><span class="school">University of Oregon</span> <span class="school-city">Eugene</span></span><span class="trip-tier tier-target">Target</span></li>
       </ul>
-      <p class="trip-note">90 min between Portland and Eugene. Only worth a trip if Oregon schools stay high on his list after LA and Colorado.</p>
+      <p class="trip-note">90 min between Portland and Eugene. Worth a trip if Oregon schools stay high after LA and Colorado.</p>
     </div>
 
     <div class="trip-card priority-5">
       <div class="trip-header">
-        <h3 class="trip-title">Utah (Wasatch Front)</h3>
+        <h3 class="trip-title">Utah</h3>
         <span class="trip-priority">Priority 5 &middot; Long weekend</span>
       </div>
-      <p class="trip-meta">4 schools &middot; fly to SLC</p>
+      <p class="trip-meta">1 school &middot; fly to SLC</p>
       <ul class="trip-schools">
         <li><span><span class="school">University of Utah</span> <span class="school-city">Salt Lake City</span></span><span class="trip-tier tier-target">Target</span></li>
-        <li><span><span class="school">Weber State</span> <span class="school-city">Ogden &middot; 35 min N</span></span><span class="trip-tier tier-safety">Safety</span></li>
-        <li><span><span class="school">Utah Valley</span> <span class="school-city">Orem &middot; 45 min S</span></span><span class="trip-tier tier-safety">Safety</span></li>
-        <li><span><span class="school">Utah State</span> <span class="school-city">Logan &middot; 90 min N</span></span><span class="trip-tier tier-safety">Safety</span></li>
       </ul>
-      <p class="trip-note">One target plus three safeties. Only worth the trip if U Utah is a real contender post-LA and Colorado.</p>
+      <p class="trip-note">Only worth the trip if U Utah stays a real contender post-Colorado and Arizona.</p>
     </div>
 
-  </div>
+    <div class="trip-card priority-crosscountry">
+      <div class="trip-header">
+        <h3 class="trip-title">Cross-Country Singles</h3>
+        <span class="trip-priority">One-off fly-in visits</span>
+      </div>
+      <p class="trip-meta">15 schools &middot; only if a specific school becomes a top choice</p>
+      <div class="trip-day">Big Ten / Midwest</div>
+      <ul class="trip-schools">
+        <li><span><span class="school">Ohio State</span> <span class="school-city">Columbus, OH</span></span><span class="trip-tier tier-target">Target</span></li>
+        <li><span><span class="school">Michigan State</span> <span class="school-city">East Lansing, MI</span></span><span class="trip-tier tier-stretch">Stretch</span></li>
+        <li><span><span class="school">Indiana</span> <span class="school-city">Bloomington, IN</span></span><span class="trip-tier tier-target">Target</span></li>
+        <li><span><span class="school">Wisconsin</span> <span class="school-city">Madison, WI</span></span><span class="trip-tier tier-stretch">Stretch</span></li>
+        <li><span><span class="school">Nebraska</span> <span class="school-city">Lincoln, NE</span></span><span class="trip-tier tier-target">Target</span></li>
+        <li><span><span class="school">Creighton</span> <span class="school-city">Omaha, NE</span></span><span class="trip-tier tier-target">Target</span></li>
+        <li><span><span class="school">Kansas State</span> <span class="school-city">Manhattan, KS</span></span><span class="trip-tier tier-target">Target</span></li>
+      </ul>
+      <div class="trip-day">SEC / Southeast</div>
+      <ul class="trip-schools">
+        <li><span><span class="school">University of Florida</span> <span class="school-city">Gainesville, FL</span></span><span class="trip-tier tier-wildcard">Wildcard</span></li>
+        <li><span><span class="school">USF Tampa</span> <span class="school-city">Tampa, FL</span></span><span class="trip-tier tier-target">Target</span></li>
+        <li><span><span class="school">Alabama</span> <span class="school-city">Tuscaloosa, AL</span></span><span class="trip-tier tier-target">Target</span></li>
+        <li><span><span class="school">Auburn</span> <span class="school-city">Auburn, AL</span></span><span class="trip-tier tier-target">Target</span></li>
+        <li><span><span class="school">LSU</span> <span class="school-city">Baton Rouge, LA</span></span><span class="trip-tier tier-target">Target</span></li>
+        <li><span><span class="school">Tennessee</span> <span class="school-city">Knoxville, TN</span></span><span class="trip-tier tier-target">Target</span></li>
+        <li><span><span class="school">South Carolina</span> <span class="school-city">Columbia, SC</span></span><span class="trip-tier tier-target">Target</span></li>
+        <li><span><span class="school">Ole Miss</span> <span class="school-city">Oxford, MS</span></span><span class="trip-tier tier-stretch">Stretch</span></li>
+        <li><span><span class="school">Georgia</span> <span class="school-city">Athens, GA</span></span><span class="trip-tier tier-stretch">Stretch</span></li>
+        <li><span><span class="school">Clemson</span> <span class="school-city">Clemson, SC</span></span><span class="trip-tier tier-stretch">Stretch</span></li>
+      </ul>
+      <div class="trip-day">Texas</div>
+      <ul class="trip-schools">
+        <li><span><span class="school">UT Austin</span> <span class="school-city">Austin, TX</span></span><span class="trip-tier tier-stretch">Stretch</span></li>
+        <li><span><span class="school">Texas A&amp;M</span> <span class="school-city">College Station, TX</span></span><span class="trip-tier tier-target">Target</span></li>
+      </ul>
+      <div class="trip-day">Other</div>
+      <ul class="trip-schools">
+        <li><span><span class="school">UConn</span> <span class="school-city">Storrs, CT</span></span><span class="trip-tier tier-stretch">Stretch</span></li>
+        <li><span><span class="school">University of Hawaii</span> <span class="school-city">Honolulu, HI</span></span><span class="trip-tier tier-wildcard">Wildcard</span></li>
+        <li><span><span class="school">Boise State</span> <span class="school-city">Boise, ID</span></span><span class="trip-tier tier-safety">Safety</span></li>
+      </ul>
+      <p class="trip-note">Don't try to visit all of these. Once he narrows applications in senior fall, pick 1-3 that made the "would attend" cut and fly out for those specifically. Texas could be one trip (SMU-free version = Austin + College Station, 90 min apart). SEC schools cluster loosely but each requires its own drive.</p>
+    </div>
 
-  <div class="standalone-box">
-    <h4>Standalone / harder to visit</h4>
-    <p><strong>SEC schools:</strong> UF (Gainesville), UGA, Alabama, Auburn, Tennessee, Ole Miss, LSU, Texas A&amp;M &mdash; each requires a dedicated trip. Most families skip SEC visits unless one becomes a top choice.</p>
-    <p style="margin-top: 10px;"><strong>Texas triangle:</strong> UT Austin, SMU, TCU, Baylor, A&amp;M can all be seen in a 3-4 day Texas trip if any move up his list.</p>
-    <p style="margin-top: 10px;"><strong>Others:</strong> Miami, Tulane (New Orleans), Boise State, Chico, Fresno State, Cal Poly Humboldt, Colorado Mesa, Western Colorado, Adams State, Southern Utah &mdash; all standalone drives or short flights, worth visiting only if they climb into the top-choice conversation.</p>
   </div>
 
   <div class="callout" style="margin-top: 32px;">
     <h3>Recommended trip sequence</h3>
     <ul>
       <li><strong>Now:</strong> San Diego visit already scheduled</li>
-      <li><strong>Spring break:</strong> LA / Orange County (11 schools, highest ROI)</li>
-      <li><strong>Long weekend, summer:</strong> Colorado Front Range (hits CU Boulder plus 3 targets)</li>
+      <li><strong>Spring break:</strong> LA / Orange County (8 schools, highest ROI)</li>
+      <li><strong>Long weekend, summer:</strong> Colorado Front Range (hits CU Boulder plus target and wildcard)</li>
       <li><strong>Long weekend, fall:</strong> Arizona (both target-tier state schools plus safeties)</li>
       <li><strong>Optional:</strong> Bay Area, Oregon, Utah &mdash; only if specific schools stay high after the first three trips</li>
-      <li><strong>Skip unless top-choice emerges:</strong> SEC and Texas trips</li>
+      <li><strong>Senior year, post-narrowing:</strong> Cross-Country Singles &mdash; 1-3 specific fly-in visits for finalist schools only</li>
     </ul>
   </div>
 </section>
 
+<section id="regional">
+  <div class="info-box">
+    <h3>Regional exchange programs &mdash; parent reference</h3>
+    <p><strong>WUE (Western Undergraduate Exchange)</strong> lets California students pay ~150% of in-state tuition (usually well below full OOS rates) at participating public universities in these states: <strong>AZ, CO, ID, MT, ND, NM, NV, OR, SD, UT, WA, WY, HI</strong>. Not all campuses or majors participate, and <strong>business programs are sometimes excluded</strong> &mdash; verify per school before applying.</p>
+    <p style="margin-top: 12px;"><strong>Schools on this list where WUE is a meaningful cost lever:</strong> U Arizona (full participation), NAU, Colorado Mesa, Metro State Denver, Western Colorado, Adams State, U Utah (partial), CU Boulder (partial), Boise State, U Hawaii. WUE brings OOS costs at some of these from $50-60K down to $25-40K.</p>
+    <p style="margin-top: 12px;"><strong>Other regional exchanges to know:</strong></p>
+    <ul style="padding-left: 20px; margin: 6px 0;">
+      <li><strong>Good Neighbor programs</strong> at specific state schools (e.g., Utah State's Good Neighbor rate) &mdash; check per school</li>
+      <li><strong>Legacy / alumni tuition breaks</strong> if either parent attended a school &mdash; ask directly</li>
+      <li><strong>Merit aid at privates</strong> (DU, USD, Chapman, Creighton, Pepperdine) can bring net cost below sticker; run each school's net price calculator once SAT is in</li>
+      <li><strong>SEC schools with OOS scholarships</strong> &mdash; Alabama, Ole Miss, Mississippi State, and Arkansas are known for automatic OOS merit tied to GPA/SAT bands. Alabama's Presidential/Foundation scholarships and Ole Miss's Academic Excellence Awards are worth researching.</li>
+    </ul>
+    <p style="margin-top: 12px;"><strong>Action item for parents:</strong> once his SAT score is in, spend an evening running the net price calculator on each Wildcard school and each private on the list. Real net cost can differ from sticker by $20-40K.</p>
+  </div>
+</section>
+
 <footer>
-  Working draft &middot; Junior year college list, expansive first pass &middot; Updated 2026-07-23
+  Working draft &middot; Junior year college list &middot; 5 buckets &middot; Updated 2026-07-24
 </footer>
 
 </div>
